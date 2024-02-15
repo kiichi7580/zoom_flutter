@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoom_flutter/resources/auth_methods.dart';
 import 'package:zoom_flutter/widgets/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,13 +10,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthMethods _authMethods = AuthMethods();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Start or join a meeting.',
             style: TextStyle(
               fontSize: 24,
@@ -28,7 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: Image.asset('assets/images/onboarding.jpg'),
           ),
-          CustomButton(text: 'Login'),
+          CustomButton(
+            text: 'Google Sign in',
+            onPressed: () async {
+              bool res = await _authMethods.signInWithGoogle(context);
+              if (res) {}
+            },
+          ),
         ],
       ),
     );
